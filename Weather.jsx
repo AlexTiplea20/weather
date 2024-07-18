@@ -71,6 +71,8 @@ const Weather = () => {
                 icon: icon
             })
 
+            localStorage.setItem('lastCity', city);
+
         } catch (error) {
             setWeatherData(false);
             console.error("Error in fetching weather data");
@@ -78,7 +80,12 @@ const Weather = () => {
     }
 
     useEffect(()=>{
-        search("Cluj-Napoca");
+        const lastCity = localStorage.getItem('lastCity');
+        if (lastCity) {
+            search(lastCity);
+        }else {
+            search("Cluj-Napoca");
+        }
     },[])
 
     return (
